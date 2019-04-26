@@ -57,22 +57,6 @@ if args.host not in load_json(CONFIG_FILE) and args.key is None:
         args.key = key
 
 
-def observe(api, device):
-    def callback(updated_device):
-        light = updated_device.light_control.lights[0]
-        print("Received message for: %s" % light)
-
-    def err_callback(err):
-        print(err)
-
-    def worker():
-        api(device.observe(callback, err_callback, duration=120))
-
-    threading.Thread(target=worker, daemon=True).start()
-    print('Sleeping to start observation task')
-    time.sleep(1)
-
-
 def run():
     # Assign configuration variables.
     # The configuration check takes care they are present.
@@ -122,7 +106,7 @@ def run():
         light_command = light.light_control.set_dimmer(254)
         dark_command = light.light_control.set_dimmer(0)
         api(dark_command)
-        
+
         with PiCamera() as camera:
             # Configure camera
             camera.resolution = (1640, 922)  # Full Frame, 16:9 (Camera v2)
@@ -132,6 +116,7 @@ def run():
             with CameraInference(face_detection.model()) as inference:
                 for result in inference.run():
                     if len(face_detection.get_faces(result)) >= 1:
+                        print('I see you')
                         api(light_command)
                         time.sleep(120)
                         api(dark_command)
