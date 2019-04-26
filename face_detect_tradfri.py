@@ -121,6 +121,8 @@ def run():
     if light:
         light_command = light.light_control.set_dimmer(254)
         dark_command = light.light_control.set_dimmer(0)
+        api(dark_command)
+        
         with PiCamera() as camera:
             # Configure camera
             camera.resolution = (1640, 922)  # Full Frame, 16:9 (Camera v2)
