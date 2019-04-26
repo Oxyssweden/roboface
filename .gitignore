@@ -1,0 +1,5 @@
+tradfri_standalone_psk.conf
+/libcoap/
+/env/
+/AIY-projects-python/
+.idea
