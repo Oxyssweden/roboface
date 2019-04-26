@@ -121,4 +121,20 @@ def run():
                         time.sleep(120)
                         api(dark_command)
 
-run()
+def main():
+    try:
+        run()
+    except KeyboardInterrupt:
+        pass
+    except Exception:
+        logger.exception('Exception while running script.')
+        if args.blink_on_error:
+            with Leds() as leds:
+                leds.pattern = Pattern.blink(100)  # 10 Hz
+                leds.update(Leds.rgb_pattern(Color.RED))
+                time.sleep(1.0)
+
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main())
