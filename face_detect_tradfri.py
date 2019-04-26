@@ -118,7 +118,7 @@ def run():
                     if len(face_detection.get_faces(result)) >= 1:
                         print('I see you')
                         api(light_command)
-                        time.sleep(120)
+                        time.sleep(5)
                         api(dark_command)
 
 def main():
