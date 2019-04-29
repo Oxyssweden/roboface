@@ -103,7 +103,7 @@ def run():
         light = None
 
     if light:
-        light_command = light.light_control.set_dimmer(254)
+        light_command = [light.light_control.set_dimmer(0), light.light_control.set_dimmer(64), light.light_control.set_dimmer(128), light.light_control.set_dimmer(192), light.light_control.set_dimmer(254)]
         dark_command = light.light_control.set_dimmer(0)
         api(dark_command)
 
@@ -115,9 +115,12 @@ def run():
             # Do inference on VisionBonnet
             with CameraInference(face_detection.model()) as inference:
                 for result in inference.run():
-                    if len(face_detection.get_faces(result)) >= 1:
+                    facecount = len(face_detection.get_faces(result))
+                    if facecount >= 1:
+                        if facecount > 4:
+                            facecount = 4
                         print('I see you')
-                        api(light_command)
+                        api(light_command[facecount])
                         time.sleep(5)
                         api(dark_command)
 
