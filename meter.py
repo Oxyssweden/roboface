@@ -1,12 +1,11 @@
-from gpiozero import Servo
 from time import sleep
 from aiy.pins import PIN_D
+from gpiozero import LED
+from time import sleep
 
-led = Servo(PIN_D)
+led = LED(PIN_D)
 
-led.min()
-sleep(1)
-led.mid()
-sleep(1)
-led.max()
-sleep(1)
+while True:
+    led.on()
+    sleep(2)
+    led.off()
