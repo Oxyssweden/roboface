@@ -4,7 +4,6 @@ from aiy.pins import PIN_D
 
 led = PWMLED(PIN_D)
 
-while True:
-    led.value = 0.1
-    sleep(1)
-    led.off()
+led.value = 0.5
+sleep(2)
+led.off()
