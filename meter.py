@@ -6,7 +6,7 @@ led = LED(PIN_D)
 
 while True:
     led.on()
-    print led.value
+    print(led.value)
     sleep(2)
     led.off()
-    print led.value
+    print(led.value)
